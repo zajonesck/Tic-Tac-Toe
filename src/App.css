@@ -53,3 +53,7 @@ body {
 .Git-link {
   color: #61dafb;
 }
+
+.square:active {
+  background-color: #82def7;
+}
