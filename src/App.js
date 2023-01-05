@@ -5,16 +5,24 @@ import { Patterns } from "./Patterns";
 
 function App() {
   const [board, setBoard] = useState(["", "", "", "", "", "", "", "", ""]);
-  const [player, setPlayer] = useState("X");
+  const [player, setPlayer] = useState("O");
   const [result, setResult] = useState({ winner: "none", state: "none" });
 
   useEffect(() => {
     checkWin();
+    checkIfTie();
+
+    if (player == "X") {
+      setPlayer("O");
+    } else {
+      setPlayer("X");
+    }
   }, [board]);
 
   useEffect(() => {
     if (result.state != "none") {
       alert(`Game Over!! Winning Player: ${result.winner}`);
+      restarGame();
     }
   }, [result]);
 
@@ -27,12 +35,6 @@ function App() {
         return val;
       })
     );
-
-    if (player == "X") {
-      setPlayer("O");
-    } else {
-      setPlayer("X");
-    }
   };
 
   const checkWin = () => {
@@ -46,9 +48,25 @@ function App() {
         }
       });
       if (foundWin) {
-        setResult({ winner: player, state: "won" });
+        setResult({ winner: player, state: "Won" });
       }
     });
+  };
+  const checkIfTie = () => {
+    let filled = true;
+    board.forEach((square) => {
+      if ((square = "")) {
+        filled = false;
+      }
+    });
+
+    if (filled) {
+      setResult({ winner: "You both lose", state: "Tie" });
+    }
+  };
+  const restarGame = () => {
+    setBoard(["", "", "", "", "", "", "", "", ""]);
+    setPlayer("O");
   };
   return (
     <div className="App">
