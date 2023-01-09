@@ -1,7 +1,7 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Square from "./Components/square";
-import { Patterns } from "./Patterns";
+import Patterns from "./Components/Patterns";
 
 function App() {
   const [board, setBoard] = useState(["", "", "", "", "", "", "", "", ""]);
@@ -12,7 +12,7 @@ function App() {
     checkWin();
     checkIfTie();
 
-    if (player == "X") {
+    if (player === "X") {
       setPlayer("O");
     } else {
       setPlayer("X");
@@ -29,7 +29,7 @@ function App() {
   const chooseSquare = (square) => {
     setBoard(
       board.map((val, idx) => {
-        if (idx == square && val == "") {
+        if (idx === square && val === "") {
           return player;
         }
         return val;
@@ -40,10 +40,10 @@ function App() {
   const checkWin = () => {
     Patterns.forEach((currPattern) => {
       const firstPlayer = board[currPattern[0]];
-      if (firstPlayer == "") return;
+      if (firstPlayer === "") return;
       let foundWin = true;
       currPattern.forEach((idx) => {
-        if (board[idx] != firstPlayer) {
+        if (board[idx] !== firstPlayer) {
           foundWin = false;
         }
       });
@@ -55,11 +55,10 @@ function App() {
   const checkIfTie = () => {
     let filled = true;
     board.forEach((square) => {
-      if ((square = "")) {
+      if (square === "") {
         filled = false;
       }
     });
-
     if (filled) {
       setResult({ winner: "You both lose", state: "Tie" });
     }
