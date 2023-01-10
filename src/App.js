@@ -20,7 +20,7 @@ function App() {
   }, [board]);
 
   useEffect(() => {
-    if (result.state != "none") {
+    if (result.state !== "none") {
       alert(`Game Over!! Winning Player: ${result.winner}`);
       restarGame();
     }
