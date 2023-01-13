@@ -1,9 +1,14 @@
 import React from "react";
 import "../App.css";
 
-function Square({ val, chooseSquare }) {
+function Square({ val, dataTestId, chooseSquare }) {
   return (
-    <div className="square" onClick={chooseSquare}>
+    <div
+      className="square"
+      data-testid={dataTestId}
+      id={dataTestId}
+      onClick={chooseSquare}
+    >
       {val}
     </div>
   );

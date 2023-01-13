@@ -71,20 +71,25 @@ function App() {
     <div className="App">
       <div className="board">
         <div className="row">
+          {/* refactor square to be in a loop 9x
+          also get rid of rows */}
           <Square
             val={board[0]}
+            dataTestId={"square0"}
             chooseSquare={() => {
               chooseSquare(0);
             }}
           />
           <Square
             val={board[1]}
+            dataTestId={"square1"}
             chooseSquare={() => {
               chooseSquare(1);
             }}
           />
           <Square
             val={board[2]}
+            dataTestId={"square2"}
             chooseSquare={() => {
               chooseSquare(2);
             }}
@@ -93,18 +98,21 @@ function App() {
         <div className="row">
           <Square
             val={board[3]}
+            dataTestId={"square3"}
             chooseSquare={() => {
               chooseSquare(3);
             }}
           />
           <Square
             val={board[4]}
+            dataTestId={"square4"}
             chooseSquare={() => {
               chooseSquare(4);
             }}
           />
           <Square
             val={board[5]}
+            dataTestId={"square5"}
             chooseSquare={() => {
               chooseSquare(5);
             }}
@@ -113,18 +121,21 @@ function App() {
         <div className="row">
           <Square
             val={board[6]}
+            dataTestId={"square6"}
             chooseSquare={() => {
               chooseSquare(6);
             }}
           />
           <Square
             val={board[7]}
+            dataTestId={"square7"}
             chooseSquare={() => {
               chooseSquare(7);
             }}
           />
           <Square
             val={board[8]}
+            dataTestId={"square8"}
             chooseSquare={() => {
               chooseSquare(8);
             }}
