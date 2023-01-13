@@ -14,20 +14,53 @@ describe("results of game", () => {
   //refactor square component so i can have a unique date-testid for each square
   test("Player X goes first", () => {
     const app = render(<App />);
-    const square = screen.getByTestId("square0");
+    const square0 = screen.getByTestId("square0");
 
-    expect(square.textContent).toEqual("");
+    expect(square0.textContent).toEqual("");
 
     act(() => {
-      fireEvent.click(square);
+      fireEvent.click(square0);
     });
-    expect(square.textContent).toEqual("X");
+    expect(square0.textContent).toEqual("X");
   });
 
-  test("player O is second", () => {});
+  test("player O is second", async () => {
+    const app = render(<App />);
+    const square0 = screen.getByTestId("square0");
+    const square1 = screen.getByTestId("square1");
+
+    expect(square0.textContent).toEqual("");
+
+    act(() => {
+      fireEvent.click(square0);
+    });
+    expect(square0.textContent).toEqual("X");
+    expect(square1.textContent).toEqual("");
+
+    act(() => {
+      fireEvent.click(square1);
+    });
+
+    expect(square1.textContent).toEqual("O");
+  });
 });
 
-test("you can only coose a square once", () => {});
+test("you can only choose a square once", async () => {
+  const app = render(<App />);
+  const square0 = screen.getByTestId("square0");
+
+  expect(square0.textContent).toEqual("");
+
+  act(() => {
+    fireEvent.click(square0);
+  });
+  expect(square0.textContent).toEqual("X");
+
+  act(() => {
+    fireEvent.click(square0);
+  });
+  expect(square0.textContent).toEqual("X");
+});
 
 test("horizontal win", () => {
   const input = [[0, 1, 2] || [3, 4, 5] || [6, 7, 8]];
