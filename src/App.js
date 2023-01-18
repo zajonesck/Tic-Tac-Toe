@@ -9,8 +9,12 @@ function App() {
   const [result, setResult] = useState({ winner: "none", state: "none" });
 
   useEffect(() => {
-    checkWin();
-    checkIfTie();
+    const foundWin = checkWin();
+    if (foundWin) {
+      setResult({ winner: player, state: "Won" });
+    } else {
+      checkIfTie();
+    }
 
     if (player === "X") {
       setPlayer("O");
@@ -22,9 +26,9 @@ function App() {
   useEffect(() => {
     if (result.state !== "none") {
       alert(`Game Over!! Winning Player: ${result.winner}`);
-      restarGame();
+      restartGame();
     }
-  }, [result]);
+  });
 
   const chooseSquare = (square) => {
     setBoard(
@@ -38,19 +42,35 @@ function App() {
   };
 
   const checkWin = () => {
-    Patterns.forEach((currPattern) => {
-      const firstPlayer = board[currPattern[0]];
-      if (firstPlayer === "") return;
-      let foundWin = true;
-      currPattern.forEach((idx) => {
-        if (board[idx] !== firstPlayer) {
-          foundWin = false;
+    let foundWin = false;
+
+    console.log("checking for win");
+    //checking for each winning pattern
+    for (
+      let currPatternIndex = 0;
+      currPatternIndex < Patterns.length;
+      currPatternIndex++
+    ) {
+      //if the first square of the pattern is empty its not that pattern
+      const playerVal = board[Patterns[currPatternIndex][0]];
+      if (playerVal === "") {
+        foundWin = false;
+      } else {
+        const winningSquareOne = Patterns[currPatternIndex][0];
+        const winningSquareTwo = Patterns[currPatternIndex][1];
+        const winningSquareThree = Patterns[currPatternIndex][2];
+
+        if (
+          board[winningSquareOne] === playerVal &&
+          board[winningSquareTwo] === playerVal &&
+          board[winningSquareThree] === playerVal
+        ) {
+          foundWin = true;
+          break;
         }
-      });
-      if (foundWin) {
-        setResult({ winner: player, state: "Won" });
       }
-    });
+    }
+    return foundWin;
   };
   const checkIfTie = () => {
     let filled = true;
@@ -63,9 +83,10 @@ function App() {
       setResult({ winner: "You both lose", state: "Tie" });
     }
   };
-  const restarGame = () => {
+  const restartGame = () => {
     setBoard(["", "", "", "", "", "", "", "", ""]);
     setPlayer("O");
+    setResult({ winner: "none", state: "none" });
   };
   return (
     <div className="App">
