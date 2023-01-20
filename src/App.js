@@ -43,9 +43,6 @@ function App() {
 
   const checkWin = () => {
     let foundWin = false;
-
-    console.log("checking for win");
-    //checking for each winning pattern
     for (
       let currPatternIndex = 0;
       currPatternIndex < Patterns.length;
