@@ -9,6 +9,8 @@ function App() {
   const [result, setResult] = useState({ winner: "none", state: "none" });
 
   useEffect(() => {
+    console.log("player", player);
+
     const foundWin = checkWin();
     if (foundWin) {
       setResult({ winner: player, state: "Won" });
@@ -16,6 +18,7 @@ function App() {
       checkIfTie();
     }
 
+    //if the square is not blank dont do anything
     if (player === "X") {
       setPlayer("O");
     } else {

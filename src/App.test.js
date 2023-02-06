@@ -63,6 +63,31 @@ test("you can only choose a square once", async () => {
   expect(square0.textContent).toEqual("X");
 });
 
+test("if you double click a square the player order is correct", async () => {
+  const app = render(<App />);
+  const square0 = screen.getByTestId("square0");
+  const square1 = screen.getByTestId("square1");
+
+  expect(square0.textContent).toEqual("");
+  expect(square1.textContent).toEqual("");
+
+  act(() => {
+    fireEvent.click(square0);
+  });
+  expect(square0.textContent).toEqual("X");
+
+  act(() => {
+    fireEvent.click(square0);
+  });
+  expect(square0.textContent).toEqual("X");
+
+  act(() => {
+    fireEvent.click(square1);
+  });
+  expect(square0.textContent).toEqual("X");
+  expect(square1.textContent).toEqual("O");
+});
+
 test(" win", async () => {
   const app = render(<App />);
   const square0 = screen.getByTestId("square0");
