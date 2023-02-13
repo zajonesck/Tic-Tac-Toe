@@ -90,53 +90,32 @@ function App() {
   const data2 = [3, 4, 5];
   const data3 = [6, 7, 8];
 
-  let dataList1 = data1.map((data) => {
-    return (
-      <Square
-        dataTestId={"square" + data}
-        key={data}
-        val={board[data]}
-        chooseSquare={() => {
-          chooseSquare(data);
-        }}
-      />
-    );
-  });
-  let dataList2 = data2.map((data) => {
-    return (
-      <Square
-        dataTestId={"square" + data}
-        key={data}
-        val={board[data]}
-        chooseSquare={() => {
-          chooseSquare(data);
-        }}
-      />
-    );
-  });
-  let dataList3 = data3.map((data) => {
-    return (
-      <Square
-        dataTestId={"square" + data}
-        key={data}
-        val={board[data]}
-        chooseSquare={() => {
-          chooseSquare(data);
-        }}
-      />
-    );
-  });
+  const renderRow = (array) => {
+    return array.map((data) => {
+      return (
+        <Square
+          dataTestId={"square" + data}
+          key={data}
+          val={board[data]}
+          chooseSquare={() => {
+            chooseSquare(data);
+          }}
+        />
+      );
+    });
+  };
+
   return (
     <div className="App">
       <div className="board">
         <div className="row">
-          <>{dataList1}</>
+          <>{renderRow(data1)}</>
         </div>
         <div className="row">
-          <>{dataList2}</>
+          <>{renderRow(data2)}</>
         </div>
         <div className="row">
-          <>{dataList3}</>
+          <>{renderRow(data3)}</>
         </div>
       </div>
       <header className="App-header">
