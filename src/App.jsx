@@ -8,6 +8,10 @@ function App() {
   const [player, setPlayer] = useState("O");
   const [result, setResult] = useState({ winner: "none", state: "none" });
 
+  const rowOne = [0, 1, 2];
+  const rowTwo = [3, 4, 5];
+  const rowThree = [6, 7, 8];
+
   useEffect(() => {
     const foundWin = checkWin();
     if (foundWin) {
@@ -41,6 +45,20 @@ function App() {
     );
   };
 
+  const isWin = (currPatternIndex, playerVal) => {
+    const checkWinSquareOne = Patterns[currPatternIndex][0];
+    const checkWinSquareTwo = Patterns[currPatternIndex][1];
+    const checkWinSquareThree = Patterns[currPatternIndex][2];
+
+    if (
+      board[checkWinSquareOne] === playerVal &&
+      board[checkWinSquareTwo] === playerVal &&
+      board[checkWinSquareThree] === playerVal
+    ) {
+      return true;
+    } else return false;
+  };
+
   const checkWin = () => {
     let foundWin = false;
     for (
@@ -48,27 +66,19 @@ function App() {
       currPatternIndex < Patterns.length;
       currPatternIndex++
     ) {
-      //if the first square of the pattern is empty its not that pattern
       const playerVal = board[Patterns[currPatternIndex][0]];
       if (playerVal === "") {
         foundWin = false;
       } else {
-        const winningSquareOne = Patterns[currPatternIndex][0];
-        const winningSquareTwo = Patterns[currPatternIndex][1];
-        const winningSquareThree = Patterns[currPatternIndex][2];
-
-        if (
-          board[winningSquareOne] === playerVal &&
-          board[winningSquareTwo] === playerVal &&
-          board[winningSquareThree] === playerVal
-        ) {
-          foundWin = true;
+        foundWin = isWin(currPatternIndex, playerVal);
+        if (foundWin === true) {
           break;
         }
       }
     }
     return foundWin;
   };
+
   const checkIfTie = () => {
     let filled = true;
     board.forEach((square) => {
@@ -80,15 +90,12 @@ function App() {
       setResult({ winner: "You both lose", state: "Tie" });
     }
   };
+
   const restartGame = () => {
     setBoard(["", "", "", "", "", "", "", "", ""]);
     setPlayer("O");
     setResult({ winner: "none", state: "none" });
   };
-
-  const data1 = [0, 1, 2];
-  const data2 = [3, 4, 5];
-  const data3 = [6, 7, 8];
 
   const renderRow = (array) => {
     return array.map((data) => {
@@ -109,13 +116,13 @@ function App() {
     <div className="App">
       <div className="board">
         <div className="row">
-          <>{renderRow(data1)}</>
+          <>{renderRow(rowOne)}</>
         </div>
         <div className="row">
-          <>{renderRow(data2)}</>
+          <>{renderRow(rowTwo)}</>
         </div>
         <div className="row">
-          <>{renderRow(data3)}</>
+          <>{renderRow(rowThree)}</>
         </div>
       </div>
       <header className="App-header">
