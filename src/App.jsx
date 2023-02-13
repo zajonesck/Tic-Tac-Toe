@@ -9,8 +9,6 @@ function App() {
   const [result, setResult] = useState({ winner: "none", state: "none" });
 
   useEffect(() => {
-    console.log("player", player);
-
     const foundWin = checkWin();
     if (foundWin) {
       setResult({ winner: player, state: "Won" });
@@ -18,7 +16,6 @@ function App() {
       checkIfTie();
     }
 
-    //if the square is not blank dont do anything
     if (player === "X") {
       setPlayer("O");
     } else {
@@ -88,79 +85,58 @@ function App() {
     setPlayer("O");
     setResult({ winner: "none", state: "none" });
   };
+
+  const data1 = [0, 1, 2];
+  const data2 = [3, 4, 5];
+  const data3 = [6, 7, 8];
+
+  let dataList1 = data1.map((data) => {
+    return (
+      <Square
+        dataTestId={"square" + data}
+        key={data}
+        val={board[data]}
+        chooseSquare={() => {
+          chooseSquare(data);
+        }}
+      />
+    );
+  });
+  let dataList2 = data2.map((data) => {
+    return (
+      <Square
+        dataTestId={"square" + data}
+        key={data}
+        val={board[data]}
+        chooseSquare={() => {
+          chooseSquare(data);
+        }}
+      />
+    );
+  });
+  let dataList3 = data3.map((data) => {
+    return (
+      <Square
+        dataTestId={"square" + data}
+        key={data}
+        val={board[data]}
+        chooseSquare={() => {
+          chooseSquare(data);
+        }}
+      />
+    );
+  });
   return (
     <div className="App">
       <div className="board">
         <div className="row">
-          {/* refactor square to be in a loop 9x
-          also get rid of rows */}
-          <Square
-            val={board[0]}
-            dataTestId={"square0"}
-            chooseSquare={() => {
-              chooseSquare(0);
-            }}
-          />
-          <Square
-            val={board[1]}
-            dataTestId={"square1"}
-            chooseSquare={() => {
-              chooseSquare(1);
-            }}
-          />
-          <Square
-            val={board[2]}
-            dataTestId={"square2"}
-            chooseSquare={() => {
-              chooseSquare(2);
-            }}
-          />
+          <>{dataList1}</>
         </div>
         <div className="row">
-          <Square
-            val={board[3]}
-            dataTestId={"square3"}
-            chooseSquare={() => {
-              chooseSquare(3);
-            }}
-          />
-          <Square
-            val={board[4]}
-            dataTestId={"square4"}
-            chooseSquare={() => {
-              chooseSquare(4);
-            }}
-          />
-          <Square
-            val={board[5]}
-            dataTestId={"square5"}
-            chooseSquare={() => {
-              chooseSquare(5);
-            }}
-          />
+          <>{dataList2}</>
         </div>
         <div className="row">
-          <Square
-            val={board[6]}
-            dataTestId={"square6"}
-            chooseSquare={() => {
-              chooseSquare(6);
-            }}
-          />
-          <Square
-            val={board[7]}
-            dataTestId={"square7"}
-            chooseSquare={() => {
-              chooseSquare(7);
-            }}
-          />
-          <Square
-            val={board[8]}
-            dataTestId={"square8"}
-            chooseSquare={() => {
-              chooseSquare(8);
-            }}
-          />
+          <>{dataList3}</>
         </div>
       </div>
       <header className="App-header">
